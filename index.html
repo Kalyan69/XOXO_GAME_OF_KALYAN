@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XOXO Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalnia&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #00b8e6;
+        }
+        .game {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+        }
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid #000066;
+            transition: background-color 0.3s;
+            color: hotpink;
+        }
+        .box:hover{
+            border: 2px solid #00ff00;
+        }
+        .box:hover {
+            background-color: #80ffaa;
+        }
+        .top{
+            margin-top: -390px;
+            margin-left: -23%;
+            color: #000099;
+            font-family: 'Kalnia', serif;
+        }
+        .top:hover{
+            color: #9900ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="game"></div>
+    <div class="top">
+        <center><h1>Tic Toc Game OX</h1></center>
+    </div>
+    <br>
+    <div>
+        <script>
+        const game = document.querySelector('.game');
+        let player = 'X';
+        let gameOver = false;
+
+        function createBoard() {
+            for (let i = 0; i < 9; i++) {
+                const box = document.createElement('div');
+                box.classList.add('box');
+                box.setAttribute('id', i);
+                box.addEventListener('click', turnClick);
+                game.appendChild(box);
+            }
+        }
+
+        function turnClick(event) {
+            if (!gameOver && event.target.textContent === '') {
+                event.target.textContent = player;
+                player = player === 'X' ? 'O' : 'X';
+                checkGame();
+            }
+        }
+
+        function checkGame() {
+            const lines = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            for (let line of lines) {
+                const [a, b, c] = line;
+                const boxA = document.getElementById(a);
+                const boxB = document.getElementById(b);
+                const boxC = document.getElementById(c);
+
+                if (boxA.textContent && boxA.textContent === boxB.textContent && boxA.textContent === boxC.textContent) {
+                    gameOver = true;
+                    alert(`Player ${boxA.textContent} wins!`);
+                    break;
+                }
+            }
+
+            if (!gameOver) {
+                const boxes = document.querySelectorAll('.box');
+                let emptyBoxes = Array.from(boxes).filter(box => box.textContent === '');
+
+                if (emptyBoxes.length === 0) {
+                    gameOver = true;
+                    alert('It\'s a tie!');
+                }
+            }
+        }
+
+        createBoard();
+    </script>
+    </div>
+</body>
+</html>
