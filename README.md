@@ -38,7 +38,7 @@ This project is a web-based implementation of the classic Tic Tac Toe game. It f
 
 ## Demo
 
-You can try out the live demo [here](https://Kalyan69.github.io/tic-tac-toe-game/).
+You can try out the live demo [here](https://kalyan69.github.io/XOXO_GAME_OF_KALYAN/).
 
 ## Built With
 
