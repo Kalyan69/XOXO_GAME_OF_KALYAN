@@ -27,7 +27,7 @@ This project is a web-based implementation of the classic Tic Tac Toe game. It f
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/{{YOUR_USERNAME}}/tic-tac-toe-game.git
+    git clone https://github.com/Kalyan69/tic-tac-toe-game.git
     ```
 
 2. Open the `index.html` file in your web browser.
@@ -38,7 +38,7 @@ This project is a web-based implementation of the classic Tic Tac Toe game. It f
 
 ## Demo
 
-You can try out the live demo [here](https://{{YOUR_USERNAME}}.github.io/tic-tac-toe-game/).
+You can try out the live demo [here](https://Kalyan69.github.io/tic-tac-toe-game/).
 
 ## Built With
 
