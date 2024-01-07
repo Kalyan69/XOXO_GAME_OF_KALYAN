@@ -27,7 +27,7 @@ This project is a web-based implementation of the classic Tic Tac Toe game. It f
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/Kalyan69/tic-tac-toe-game.git
+    git clone https://github.com/Kalyan69/XOXO_GAME_OF_KALYAN.git
     ```
 
 2. Open the `index.html` file in your web browser.
