@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XOXO Game</title>
+    <title>XOXO Game New Update</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kalnia&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Kalnia', serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #00b8e6;
+            flex-direction: column;
         }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .game {
             display: grid;
             grid-template-columns: repeat(3, 100px);
             grid-template-rows: repeat(3, 100px);
             gap: 10px;
         }
+
         .box {
             display: flex;
             justify-content: center;
@@ -36,32 +46,62 @@
             transition: background-color 0.3s;
             color: hotpink;
         }
-        .box:hover{
+
+        .box:hover {
             border: 2px solid #00ff00;
         }
+
         .box:hover {
             background-color: #80ffaa;
         }
-        .top{
-            margin-top: -390px;
-            margin-left: -23%;
+
+        .top {
+            margin-top: 20px;
             color: #000099;
-            font-family: 'Kalnia', serif;
         }
-        .top:hover{
+
+        .top:hover {
             color: #9900ff;
+        }
+
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        #reset-btn {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #9900ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #reset-btn:hover {
+            background-color: #8000cc;
         }
     </style>
 </head>
+
 <body>
-    <div class="game"></div>
-    <div class="top">
-        <center><h1>Tic Toc Game OX</h1></center>
+    <div class="game-container">
+        <div class="top">
+            <center>
+                <h1>Tic Tac Toe Game</h1>
+            </center>
+        </div>
+        <div id="result"></div>
+        <div class="game"></div>
+        <button id="reset-btn" onclick="resetGame()">Reset Game</button>
     </div>
-    <br>
-    <div>
-        <script>
+
+    <script>
         const game = document.querySelector('.game');
+        const resultDisplay = document.getElementById('result');
+        const resetButton = document.getElementById('reset-btn');
         let player = 'X';
         let gameOver = false;
 
@@ -103,7 +143,7 @@
 
                 if (boxA.textContent && boxA.textContent === boxB.textContent && boxA.textContent === boxC.textContent) {
                     gameOver = true;
-                    alert(`Player ${boxA.textContent} wins!`);
+                    resultDisplay.textContent = `Player ${boxA.textContent} wins!`;
                     break;
                 }
             }
@@ -114,13 +154,23 @@
 
                 if (emptyBoxes.length === 0) {
                     gameOver = true;
-                    alert('It\'s a tie!');
+                    resultDisplay.textContent = 'It\'s a tie!';
                 }
             }
         }
 
+        function resetGame() {
+            const boxes = document.querySelectorAll('.box');
+            boxes.forEach(box => {
+                box.textContent = '';
+            });
+            resultDisplay.textContent = '';
+            gameOver = false;
+            player = 'X';
+        }
+
         createBoard();
     </script>
-    </div>
 </body>
+
 </html>
