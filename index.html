@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XOXO Game New Update</title>
+    <title>Tic Tac Toe Game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kalnia&display=swap" rel="stylesheet">
@@ -31,6 +31,7 @@
             grid-template-columns: repeat(3, 100px);
             grid-template-rows: repeat(3, 100px);
             gap: 10px;
+            margin-top: 20px;
         }
 
         .box {
@@ -43,7 +44,8 @@
             font-weight: bold;
             cursor: pointer;
             border: 2px solid #000066;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #ffffff;
             color: hotpink;
         }
 
@@ -55,6 +57,7 @@
         .top {
             margin-top: 20px;
             color: #000099;
+            font-size: 24px;
         }
 
         .top:hover {
@@ -85,11 +88,48 @@
             display: flex;
             flex-direction: column;
             margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
         }
 
         #player-names input {
             margin-bottom: 10px;
             padding: 5px;
+        }
+
+        /* Winner Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #close-modal-btn {
+            background-color: #9900ff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #close-modal-btn:hover {
+            background-color: #8000cc;
         }
     </style>
 </head>
@@ -97,15 +137,13 @@
 <body>
     <div class="game-container">
         <div class="top">
-            <center>
-                <h1>Tic Tac Toe Game</h1>
-            </center>
+            <h1>Tic Tac Toe Game</h1>
         </div>
         <div id="player-names">
-            <label for="player1">Player 1 Name: </label>
+            <label for="player1">Player 1 Name:</label>
             <input type="text" id="player1" placeholder="Player 1">
 
-            <label for="player2">Player 2 Name: </label>
+            <label for="player2">Player 2 Name:</label>
             <input type="text" id="player2" placeholder="Player 2">
         </div>
         <div id="result"></div>
@@ -113,12 +151,21 @@
         <button id="reset-btn" onclick="resetGame()">Reset Game</button>
     </div>
 
+    <!-- Winner Modal -->
+    <div class="modal" id="winner-modal">
+        <div class="modal-content">
+            <h2 id="winner-message"></h2>
+            <button id="close-modal-btn" onclick="closeWinnerModal()">Close</button>
+        </div>
+    </div>
+
     <script>
         const game = document.querySelector('.game');
         const resultDisplay = document.getElementById('result');
-        const resetButton = document.getElementById('reset-btn');
         const player1Input = document.getElementById('player1');
         const player2Input = document.getElementById('player2');
+        const winnerModal = document.getElementById('winner-modal');
+        const winnerMessage = document.getElementById('winner-message');
         let player1 = 'Player 1';
         let player2 = 'Player 2';
         let currentPlayer = player1;
@@ -165,6 +212,7 @@
                     gameOver = true;
                     resultDisplay.textContent = `Player ${currentPlayer} wins!`;
                     updateScore();
+                    openWinnerModal();
                     break;
                 }
             }
@@ -205,6 +253,16 @@
             currentPlayer = player1;
         }
 
+        function openWinnerModal() {
+            winnerMessage.textContent = `Player ${currentPlayer} wins!`;
+            winnerModal.style.display = 'flex';
+        }
+
+        function closeWinnerModal() {
+            winnerModal.style.display = 'none';
+        }
+
+        // Initialize the board and display
         createBoard();
     </script>
 </body>
