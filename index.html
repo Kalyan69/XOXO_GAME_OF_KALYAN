@@ -49,9 +49,6 @@
 
         .box:hover {
             border: 2px solid #00ff00;
-        }
-
-        .box:hover {
             background-color: #80ffaa;
         }
 
@@ -83,6 +80,17 @@
         #reset-btn:hover {
             background-color: #8000cc;
         }
+
+        #player-names {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        #player-names input {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
     </style>
 </head>
 
@@ -93,6 +101,13 @@
                 <h1>Tic Tac Toe Game</h1>
             </center>
         </div>
+        <div id="player-names">
+            <label for="player1">Player 1 Name: </label>
+            <input type="text" id="player1" placeholder="Player 1">
+
+            <label for="player2">Player 2 Name: </label>
+            <input type="text" id="player2" placeholder="Player 2">
+        </div>
         <div id="result"></div>
         <div class="game"></div>
         <button id="reset-btn" onclick="resetGame()">Reset Game</button>
@@ -102,7 +117,13 @@
         const game = document.querySelector('.game');
         const resultDisplay = document.getElementById('result');
         const resetButton = document.getElementById('reset-btn');
-        let player = 'X';
+        const player1Input = document.getElementById('player1');
+        const player2Input = document.getElementById('player2');
+        let player1 = 'Player 1';
+        let player2 = 'Player 2';
+        let currentPlayer = player1;
+        let player1Score = 0;
+        let player2Score = 0;
         let gameOver = false;
 
         function createBoard() {
@@ -117,8 +138,7 @@
 
         function turnClick(event) {
             if (!gameOver && event.target.textContent === '') {
-                event.target.textContent = player;
-                player = player === 'X' ? 'O' : 'X';
+                event.target.textContent = currentPlayer === player1 ? 'X' : 'O';
                 checkGame();
             }
         }
@@ -143,7 +163,8 @@
 
                 if (boxA.textContent && boxA.textContent === boxB.textContent && boxA.textContent === boxC.textContent) {
                     gameOver = true;
-                    resultDisplay.textContent = `Player ${boxA.textContent} wins!`;
+                    resultDisplay.textContent = `Player ${currentPlayer} wins!`;
+                    updateScore();
                     break;
                 }
             }
@@ -155,8 +176,23 @@
                 if (emptyBoxes.length === 0) {
                     gameOver = true;
                     resultDisplay.textContent = 'It\'s a tie!';
+                } else {
+                    currentPlayer = currentPlayer === player1 ? player2 : player1;
                 }
             }
+        }
+
+        function updateScore() {
+            if (currentPlayer === player1) {
+                player1Score++;
+            } else {
+                player2Score++;
+            }
+            displayScore();
+        }
+
+        function displayScore() {
+            resultDisplay.innerHTML = `<p>${player1}: ${player1Score} - ${player2}: ${player2Score}</p>`;
         }
 
         function resetGame() {
@@ -166,7 +202,7 @@
             });
             resultDisplay.textContent = '';
             gameOver = false;
-            player = 'X';
+            currentPlayer = player1;
         }
 
         createBoard();
